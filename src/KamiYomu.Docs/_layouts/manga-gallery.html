@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery | KamiYomu</title>
+  <style>
+    body { background: #111; color: #fff; font-family: sans-serif; padding: 40px; }
+    .search-bar { width: 100%; max-width: 400px; padding: 10px; margin-bottom: 30px; border-radius: 5px; border: 1px solid #444; background: #222; color: #fff; }
+    
+    .manga-grid { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+      gap: 20px; 
+    }
+
+    .manga-card { 
+      background: #1a1a1a; 
+      border-radius: 8px; 
+      overflow: hidden; 
+      transition: 0.3s; 
+      text-decoration: none; 
+      color: inherit;
+      border: 1px solid #333;
+    }
+    
+    .manga-card:hover { transform: scale(1.03); border-color: #7253ed; }
+    
+    .manga-card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; }
+    
+    .manga-card-info { padding: 15px; text-align: center; }
+  </style>
+</head>
+<body>
+
+  <h1>Manga Library</h1>
+  
+  <input type="text" id="mangaSearch" class="search-bar" placeholder="Search manga...">
+
+<div class="manga-grid" id="mangaGrid">
+  {% for item in site.manga %}
+    {% if item.layout == "manga-info" %} 
+      <a href="{{ item.url | relative_url }}" 
+         class="manga-card" 
+         data-title="{{ item.title | downcase }} {{ item.author | downcase }}">
+        
+        <div class="cover-container">
+          <img src="{{ item.cover | relative_url }}" alt="{{ item.title }}">
+        </div>
+        
+        <div class="manga-card-info">
+          <strong class="manga-title">{{ item.title }}</strong>
+          
+          <span class="manga-author">By {{ item.author }}</span>
+          
+          <div class="card-genres">
+            {% for genre in item.genres limit: 3 %}
+              <span class="card-genre-tag">{{ genre }}</span>
+            {% endfor %}
+          </div>
+        </div>
+      </a>
+    {% endif %}
+  {% endfor %}
+</div>
+
+  <script>
+    const searchInput = document.getElementById('mangaSearch');
+    const cards = document.querySelectorAll('.manga-card');
+
+    function filter() {
+      const val = searchInput.value.toLowerCase();
+      
+      // Update URL Param
+      const url = new URL(window.location);
+      val ? url.searchParams.set('q', val) : url.searchParams.delete('q');
+      window.history.replaceState({}, '', url);
+
+      cards.forEach(card => {
+        card.style.display = card.dataset.title.includes(val) ? 'block' : 'none';
+      });
+    }
+
+    // Init search from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    if(urlParams.has('q')) {
+      searchInput.value = urlParams.get('q');
+      filter();
+    }
+
+    searchInput.addEventListener('input', filter);
+  </script>
+</body>
+</html>
