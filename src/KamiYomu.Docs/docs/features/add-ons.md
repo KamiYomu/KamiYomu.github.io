@@ -46,8 +46,8 @@ A source is a NuGet server your crawler agents use.
 - **URL**: The NuGet server endpoint
 
 **Common endpoints:**
+- `https://gitea.kamiyomu.com/api/packages/kamiyomu/nuget/index.json` (KamiYomu Gitea)
 - `https://api.nuget.org/v3/index.json` (NuGet.Org)
-- `https://baget.kamiyomu.com/v3/index.json` (KamiYomu BaGet)
 - `https://nuget.pkg.github.com/KamiYomu/index.json` (KamiYomu GitHub)
 
 **Optional fields** (required if authentication is needed):

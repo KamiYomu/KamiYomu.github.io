@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title }} | KamiYomu</title>
+  <style>
+    :root {
+      --primary: #7253ed;
+      --bg: #0b0b0b;
+      --card: #161616;
+      --text: #efefef;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, sans-serif;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    .back-nav {
+      margin-bottom: 30px;
+    }
+
+    .back-nav a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .manga-header {
+      display: flex;
+      gap: 40px;
+      margin-bottom: 50px;
+      flex-wrap: wrap;
+    }
+
+    .manga-cover {
+      flex: 0 0 300px;
+    }
+
+    .manga-cover img {
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+    }
+
+    .manga-details {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .manga-details h1 {
+      margin-top: 0;
+      font-size: 2.5rem;
+    }
+
+    .description {
+      line-height: 1.8;
+      color: #aaa;
+      font-size: 1.1rem;
+      margin: 20px 0;
+    }
+
+    .meta-item {
+      margin-bottom: 10px;
+      font-size: 0.9rem;
+    }
+
+    .meta-label {
+      color: var(--primary);
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-right: 10px;
+    }
+
+    .chapter-section {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 30px;
+    }
+
+    .chapter-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .chapter-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      background: #222;
+      border-radius: 8px;
+      text-decoration: none;
+      color: white;
+      transition: 0.2s;
+      border: 1px solid transparent;
+    }
+
+    .chapter-item:hover {
+      background: #2a2a2a;
+      border-color: var(--primary);
+    }
+
+    .read-btn {
+      background: var(--primary);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+    }
+
+    .genre-pill,
+    .tag-pill {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      margin: 4px 4px 4px 0;
+      font-weight: 500;
+    }
+
+    .genre-pill {
+      background: var(--primary);
+      color: white;
+    }
+
+    .tag-pill {
+      background: #333;
+      color: #ccc;
+      border: 1px solid #444;
+    }
+
+    .meta-group {
+      margin-top: 15px;
+    }
+
+    .publish-year {
+      color: #888;
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <nav class="back-nav">
+      <a href="{{ '/samples/gallery/' | relative_url }}">← Back to Gallery</a>
+    </nav>
+
+    <header class="manga-header">
+      <div class="manga-cover">
+        <img src="{{ page.cover | relative_url }}" alt="{{ page.title }}">
+      </div>
+      <div class="manga-details">
+        <h1>{{ page.title }}</h1>
+
+        <div class="publish-year">{{ page.year }}</div>
+
+        <div class="meta-item"><span class="meta-label">Author</span> {{ page.author }}</div>
+        <div class="meta-item"><span class="meta-label">Status</span> {{ page.status }}</div>
+
+        <div class="meta-group">
+          {% for genre in page.genres %}
+          <span class="genre-pill">{{ genre }}</span>
+          {% endfor %}
+        </div>
+
+        <p class="description">{{ page.description }}</p>
+
+        <div class="meta-group">
+          {% for tag in page.tags %}
+          <span class="tag-pill">#{{ tag }}</span>
+          {% endfor %}
+        </div>
+
+        <a href="#chapters" class="chapter-item"
+          style="display:inline-block; background: var(--primary); width: auto; margin-top: 20px;">Jump to Chapters</a>
+      </div>
+    </header>
+
+    <section id="chapters" class="chapter-section">
+      <h2>Available Chapters</h2>
+      <div class="chapter-list">
+        {% comment %}
+        1. Identify the series folder name (e.g., 'kami', 'yomu', or 'kamiyomu')
+        We look at the file path: _manga/kami/index.md -> kami
+        {% endcomment %}
+        {% assign path_parts = page.path | split: "/" %}
+        {% assign current_series = path_parts[1] %}
+
+        {% assign chapters = site.manga | sort: "order" %}
+        {% assign chapter_count = 0 %}
+
+        {% for ch in chapters %}
+        {% comment %}
+        2. Match chapters that share the same folder name in their path
+        {% endcomment %}
+        {% if ch.path contains current_series %}
+        {% if ch.url != page.url and ch.layout == "manga-reader" %}
+        <a href="{{ ch.url | relative_url }}" class="chapter-item">
+          <span>{{ ch.title }}</span>
+          <span class="read-btn">READ</span>
+        </a>
+        {% assign chapter_count = chapter_count | plus: 1 %}
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+
+        {% if chapter_count == 0 %}
+        <div style="padding: 20px; border: 1px dashed #444; color: #888; text-align: center;">
+          <p>No chapters detected in folder: <strong>{{ current_series }}</strong></p>
+          <p style="font-size: 0.8rem;">Checked <strong>{{ site.manga | size }}</strong> total items in collection.</p>
+        </div>
+        {% endif %}
+      </div>
+    </section>
+  </div>
+
+</body>
+
+</html>

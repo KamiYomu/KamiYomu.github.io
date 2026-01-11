@@ -8,8 +8,8 @@ services:
     ports:
       - "8080:8080" # HTTP Port
     environment:
-        Worker__WorkerCount: 4
-        Worker__MaxConcurrentCrawlerInstances: 2
+        Worker__WorkerCount: 2
+        Worker__MaxConcurrentCrawlerInstances: 1
         Worker__MinWaitPeriodInMilliseconds: 3000
         Worker__MaxWaitPeriodInMilliseconds: 9001
         Worker__MaxRetryAttempts: 10

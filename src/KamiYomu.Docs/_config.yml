@@ -32,6 +32,8 @@ social:
     links:
       - https://www.nuget.org/profiles/KamiYomu
 
+
+
 # ===============================================
 # JEKYLL PLUGIN & PATH DEFAULTS
 # ===============================================
@@ -64,16 +66,29 @@ gh_edit_source: src/KamiYomu.Docs # the source that your files originate from
 gh_edit_view_mode: "tree" # "tree" or "edit" if you want the user to jump into the editor immediately
 
 
-  
+# ===============================================
+# COLLECTIONS (Manga Reader)
+# ===============================================
+collections:
+  manga:
+    output: true
+    permalink: /samples/reader/:path/
+
 defaults:
   - scope:
-      # This path should point to the directory containing your Markdown pages
       path: "docs"
       type: "pages"
     values:
       layout: "default"
       image: /assets/images/favicon.png
       author: KamiYomu
+  - scope:
+      path: ""
+      type: "manga" 
+    values:
+      layout: "manga-reader" 
+      nav_exclude: true      
+
 
 # Analytics
 ga_tracking: G-Y3ZC47Q4VM
