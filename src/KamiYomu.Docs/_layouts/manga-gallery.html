@@ -37,16 +37,32 @@
   
   <input type="text" id="mangaSearch" class="search-bar" placeholder="Search manga...">
 
-  <div class="manga-grid" id="mangaGrid">
-    {% for item in site.manga %}
-      {% if item.cover %} <a href="{{ item.url | relative_url }}" class="manga-card" data-title="{{ item.title | downcase }}">
+<div class="manga-grid" id="mangaGrid">
+  {% for item in site.manga %}
+    {% if item.layout == "manga-info" %} 
+      <a href="{{ item.url | relative_url }}" 
+         class="manga-card" 
+         data-title="{{ item.title | downcase }} {{ item.author | downcase }}">
+        
+        <div class="cover-container">
           <img src="{{ item.cover | relative_url }}" alt="{{ item.title }}">
-          <div class="manga-card-info">
-            <strong>{{ item.title }}</strong> </div>
-        </a>
-      {% endif %}
-    {% endfor %}
-  </div>
+        </div>
+        
+        <div class="manga-card-info">
+          <strong class="manga-title">{{ item.title }}</strong>
+          
+          <span class="manga-author">By {{ item.author }}</span>
+          
+          <div class="card-genres">
+            {% for genre in item.genres limit: 3 %}
+              <span class="card-genre-tag">{{ genre }}</span>
+            {% endfor %}
+          </div>
+        </div>
+      </a>
+    {% endif %}
+  {% endfor %}
+</div>
 
   <script>
     const searchInput = document.getElementById('mangaSearch');
