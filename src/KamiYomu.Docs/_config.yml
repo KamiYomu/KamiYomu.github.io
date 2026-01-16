@@ -30,7 +30,7 @@ social:
       - https://github.com/KamiYomu/kamiyomu
   - name: NuGet
     links:
-      - https://www.nuget.org/profiles/KamiYomu
+      - https://www.nuget.org/packages?q=crawleragents
 
 
 

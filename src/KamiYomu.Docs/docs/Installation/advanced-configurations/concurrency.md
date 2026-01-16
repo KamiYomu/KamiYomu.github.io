@@ -9,19 +9,67 @@ nav_order: 1
 KamiYomu provides several concurrency-related settings that allow you to fine‑tune how many background tasks and crawler agents instances can run in parallel. These options can be configured directly through your Docker Compose environment variables.
 
 ---
-
 ## Worker__WorkerCount
 
-Defines the total number of background processing threads that Hangfire will spawn.
+Defines the maximum number of background worker threads that Hangfire can run concurrently.  
+Each worker is capable of executing **one task at a time**, such as scanning or downloading manga.
 
-- Increasing this value allows more jobs to run concurrently.
-- Higher concurrency also increases CPU usage and memory consumption.
-- Each worker thread typically consumes around 20~50 MB of memory while active  
-  (actual usage may vary depending on the crawler agent and system environment).
+Increasing this value increases parallelism, but it also **significantly impacts system resources**.
 
-Use this setting to scale overall throughput based on your server’s available resources.
+### How it Works
 
----
+- Each worker thread processes one background job.
+- More workers = more jobs running at the same time.
+- Concurrency improves throughput, but also increases:
+  - CPU usage
+  - Memory consumption
+  - Disk and network activity
+
+### Memory Considerations (Important)
+
+Most crawler agents used by KamiYomu rely on **Chromium-based browsers** (via Puppeteer) to fetch and render content.
+
+This has a **major impact on memory usage**:
+
+- A single Chromium instance typically consumes **150–250 MB of RAM** while active.
+- Each crawling task usually requires **its own Chromium instance**.
+- This memory is consumed **per active worker**, not shared.
+
+In practice:
+
+- **1 worker** ≈ 200–300 MB RAM
+- **3 workers** ≈ 600–900 MB RAM
+- **5 workers** ≈ 1–1.5 GB RAM
+
+Actual usage varies depending on:
+- Website complexity
+- Number of open tabs/pages
+- Enabled browser features
+- System libraries and OS
+
+
+{: .danger }
+> **Be careful when increasing `Worker__WorkerCount`.**  
+> Each active worker may spawn a dedicated Chromium instance, which can consume **200 MB or more of memory per > task**.  
+> On systems with limited RAM (such as VPS or Raspberry Pi), setting this value too high may cause:
+> - Out-of-memory (OOM) kills
+> - System slowdowns
+> - Task failures or crashes
+{: .danger }
+
+### Recommended Guidelines
+
+- **Low-memory systems (≤ 2 GB RAM)**  
+  Set `Worker__WorkerCount` to **1**
+
+- **Mid-range systems (4–8 GB RAM)**  
+  Set `Worker__WorkerCount` to **2–3**
+
+- **High-memory systems (16 GB+ RAM)**  
+  Increase cautiously and monitor usage
+
+Use `Worker__WorkerCount` to scale throughput **only if your hardware allows it**.  
+When tuning this value, always consider Chromium’s memory footprint, not just CPU usage.
 
 ## Worker__MaxConcurrentCrawlerInstances
 
