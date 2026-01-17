@@ -40,7 +40,7 @@ services:
       - database_storage:/db 
       - logs_storage:/logs 
       - crawler_agents:/agents 
-
+      - /etc/localtime:/etc/localtime:ro
 volumes:
   manga_storage:
   database_storage:
