@@ -28,11 +28,6 @@ social:
   - name: Github
     links:
       - https://github.com/KamiYomu/kamiyomu
-  - name: NuGet
-    links:
-      - https://www.nuget.org/packages?q=crawleragents
-
-
 
 # ===============================================
 # JEKYLL PLUGIN & PATH DEFAULTS
@@ -55,7 +50,7 @@ nav_enabled: true
 permalink: pretty
 aux_links:
   Github: https://github.com/KamiYomu/kamiyomu
-  "Nuget.org": https://www.nuget.org/profiles/KamiYomu
+  "Nuget.org": https://www.nuget.org/packages?q=crawleragents&includeComputedFrameworks=false&prerel=true&sortby=created-desc
 
 # Enable 'Edit this Page' links
 gh_edit_link: true # show or hide edit this page link
