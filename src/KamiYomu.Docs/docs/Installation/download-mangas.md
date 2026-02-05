@@ -50,6 +50,8 @@ If no custom values are provided, the system uses the defaults defined in your `
 * **Title:** `{manga_title} Ch.{chapter_padded_4}`
 * **Series:** `{manga_title}`
 
+You can save this customization as your preferred setting by selecting the option `Make this the default setting for future collections.`.
+New manga download will following these settings.
 
 ### Template Variables Reference
 
