@@ -88,7 +88,7 @@ New manga download will following these settings.
 | `{minute}` | Date and Time | 15 |
 | `{second}` | Date and Time | 23 |
 
-<img src="{{ '/assets/setup-your-download.jpeg' | relative_url }}" height="300"/>
+<img src="{{ '/assets/images/setup-your-download.jpeg' | relative_url }}" height="600"/>
 
 ## See your PDF/Zip files
 
