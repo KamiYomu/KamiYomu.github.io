@@ -4,7 +4,7 @@ parent: Development
 nav_order: 3
 ---
 
-# Visual Studio Code Setup
+# Visual Studio Setup
 
 ## Requirements
 - Docker: [Download here](https://www.docker.com/get-started)
