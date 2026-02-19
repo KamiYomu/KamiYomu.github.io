@@ -17,5 +17,6 @@ nav_order: 3
 {{ clone_repo_note | markdownify }}
 
 - Open the solution in Visual Studio in `/src/KamiYomu.sln`
+- Right-Click on the `libman.json`, then click on `Restore Client-Side Libraries`
 - Set `docker-compose` project as **startup project** (Right-click on `docker-compose` project, select `Set As Startup Project.`).
-- Run it
+- Run it (press `F5`)
