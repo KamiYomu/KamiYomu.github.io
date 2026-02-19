@@ -28,18 +28,5 @@ We support development in both the full Visual Studio IDE and the lightweight VS
 > Regardless of your choice, ensure you have the latest .NET SDK installed as specified in our [Getting Started]({{ 'http://localhost:4000/docs/development/development/' | relative_url }}) guide.
 > {: .note }
 
----
-
-## 🛠️ Additional Tools
-
-To streamline your development workflow with KamiYomu, we recommend the following utilities:
-
-### [ResX Resource Manager](https://github.com/dotnet/ResXResourceManager)
-A powerful, open-source tool for managing **Internationalization (i18n)**. It simplifies the creation and maintenance of `.resx` files by providing a centralized interface for keys and translations.
-
-* **Key Features**: Visual translation management, easy key creation, and bulk editing.
-* **Documentation**: [Read the Docs](https://github.com/dotnet/ResXResourceManager/blob/master/Documentation/Readme.md)
-* **License**: Free and Open Source.
-
 
 ---
