@@ -1,10 +1,10 @@
 ---
-title: Install via docker
+title: Install via Docker
 parent: Getting Started
 nav_order: 1
 ---
 
-# Installation
+# Install via Docker
 
 ## Requirements
 

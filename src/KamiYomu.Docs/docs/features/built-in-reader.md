@@ -6,7 +6,7 @@ parent: Features
 # Built-in Reader
 
 
-<img src="{{ '/assets/tutorial/builtin-manga-reader.gif' | relative_url }}" height="300"/>
+<img src="{{ '/assets/images/tutorial/builtin-manga-reader.gif' | relative_url }}" height="300"/>
 
 Starting with version 1.1.0, KamiYomu introduces a powerful built-in
 manga reader.
