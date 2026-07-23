@@ -5,7 +5,7 @@ parent: Features
 
 # Add-ons
 
-<img src="{{ '/assets/tutorial/install-add-ons.gif' | relative_url }}" height="300"/>
+<img src="{{ '/assets/images/tutorial/install-add-ons.gif' | relative_url }}" height="300"/>
 
 The KamiYomu platform supports add-ons that extend functionality and customize your manga crawling experience. Add-ons can introduce new manga sources, implement features, or modify existing behavior.
 
