@@ -117,3 +117,5 @@ After the installation, KamiYomu will be available in the program files (`C:\Pro
 
 
 
+
+
