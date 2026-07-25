@@ -47,7 +47,7 @@ Developing and maintaining a self-hosted ecosystem takes time and effort. If you
   <p style="color: #57606a; margin-bottom: 20px;">
     Help me keep <strong>KamiYomu</strong> free, open-source, and independent.
   </p>
-  <iframe src="https://github.com/sponsors/MarcosCostaDev/button" title="Sponsor MarcosCostaDev" height="32" width="114" style="border: 0; border-radius: 6px;"></iframe>
+  <iframe src="https://github.com/sponsors/KamiYomu/button" title="Sponsor KamiYomu" height="32" width="114" style="border: 0; border-radius: 6px;"></iframe>
 </div>
 
 ---
